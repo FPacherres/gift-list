@@ -3,12 +3,16 @@
 
 :root {
   --vt-teal: #17A6A3;
-  --vt-bubblegum: #ED6191;
+  --vt-bubblegum: #FB6F92;
   --vt-peacock: #1C3645;
   --vt-snow: #F0F9F8;
-  --vt-oat: #FAF0F8;
+  --vt-oat: #ffcfda;
   --vt-powder: #C4E8E8;
   --vt-gray: #DCE1F0;
+  --white: #fff;
+  --black: #373739;
+  --color-success: #9bfab0;
+  --color-warning: #ffe5ec;
 }
 
 /* semantic color variables for this project */
@@ -44,5 +48,7 @@ body {
   background: var(--color-background);
   font-family: "Poppins", sans-serif;
   font-style: normal;
+  color: var(--black);
+  padding: 24px 0 48px;
 }
 
