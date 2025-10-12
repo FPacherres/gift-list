@@ -84,8 +84,12 @@ const list = [
 
 <style scoped>
 .cardList {
-  display: grid;
-  row-gap: 24px;
+  width: 100vw;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   padding-bottom: 48px;
+  align-items: center;
 }
 </style>

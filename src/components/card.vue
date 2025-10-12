@@ -41,7 +41,8 @@ const status = computed(() => props.item?.available || false);
 
 <style scoped>
 .card {
-  width: 350px;
+  width: 100vw;
+  max-width: 350px;
   flex-shrink: 0;
   min-height: v-bind("status ? '350px' : '294px'");
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
