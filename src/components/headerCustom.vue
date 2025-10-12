@@ -7,5 +7,6 @@
 <style scoped>
 .header {
     background-color: blue;
+    height: 120px;
 }
 </style>

@@ -77,8 +77,15 @@ const list = [
 </script>
 
 <template>
-  <card v-for="(item, i) in list" :key="i" :i="i" :item="item" />
+  <div class="cardList">
+    <card v-for="(item, i) in list" :key="i" :i="i" :item="item" />
+  </div>
 </template>
 
 <style scoped>
+.cardList {
+  display: grid;
+  row-gap: 24px;
+  padding-bottom: 48px;
+}
 </style>

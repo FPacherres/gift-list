@@ -97,6 +97,7 @@ const status = computed(() => props.item?.available || false);
   grid-template-columns: auto 1fr;
   gap: 4px;
   align-items: center;
+  padding-bottom: 4px;
 }
 .card__text .user span {
   font-size: 16px;
