@@ -1,5 +1,6 @@
 <script setup>
 import { ref, defineEmits } from "vue";
+import Swal from "sweetalert2";
 
 // Emits
 const emit = defineEmits(["closeModal"]);
@@ -18,13 +19,20 @@ function required(v) {
 
 function validateFile(value) {
   if (!value) return "Campo obligatorio";
-  const fileObj = value[0];
+
+  // Si el componente no es múltiple, value es un solo File
+  const fileObj = Array.isArray(value) ? value[0] : value;
+
+  if (!fileObj) return "Campo obligatorio";
+
   if (!fileObj.type.startsWith("image/")) {
-    return "Debe ser una imagen";
+    return "Debe ser una imagen (jpg, png, etc)";
   }
+
   if (fileObj.size > 10 * 1024 * 1024) {
     return "La imagen no debe superar los 10MB";
   }
+
   return true;
 }
 
@@ -36,8 +44,13 @@ function onSubmit() {
   console.log({
     nombre: name.value,
     monto: amount.value,
-    archivo: file.value ? file.value[0].name : null,
+    archivo: file.value ? file?.value?.[0]?.name : null,
   });
+
+  emit("closeModal");
+
+  // Si falla enviar false - con el backend
+  showAlert(true);
 
   setTimeout(() => (loading.value = false), 2000);
 }
@@ -52,6 +65,24 @@ function validateAmount(v) {
   if (isNaN(Number(v))) return "Debe ser un número válido";
   if (Number(v) <= 0) return "Debe ser mayor que 0";
   return true;
+}
+
+function showAlert(ok) {
+  if (ok) {
+    Swal.fire({
+      title: "¡Registro exitoso!",
+      text: "Tu comprobante ha sido enviado correctamente, muchas gracias!",
+      icon: "success",
+      showConfirmButton: false
+    });
+  } else {
+    Swal.fire({
+      title: "Upps! ocurrió un error.",
+      text: "Porfavor inténtalo nuevamente.",
+      icon: "error",
+      showConfirmButton: false
+    });
+  }
 }
 </script>
 
@@ -82,7 +113,7 @@ function validateAmount(v) {
       v-model="file"
       :readonly="loading"
       :rules="[validateFile]"
-      accept="image/*"
+      accept="image/png, image/jpeg"
       label="Comprobante (imagen)"
       placeholder="Sube tu comprobante de pago"
       show-size
