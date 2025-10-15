@@ -8,18 +8,22 @@ import InvitationIntro from "@/components/invitationIntro.vue";
 const tab = ref(1);
 const showIntro = ref(true);
 
-function closeIntro() {
+function closeIntroEvent() {
   showIntro.value = false;
+}
+
+function showIntroEvent() {
+  showIntro.value = true;
 }
 </script>
 
 <template>
   <transition name="fade">
-    <invitation-intro v-if="showIntro" @close="closeIntro" />
+    <invitation-intro v-if="showIntro" @close="closeIntroEvent" />
   </transition>
 
   <div v-show="!showIntro" class="main-content">
-    <header-custom />
+    <header-custom @show="showIntroEvent" />
 
     <v-tabs v-model="tab" align-tabs="center" class="custom-tabs">
       <v-tab :value="1">Regalos</v-tab>
