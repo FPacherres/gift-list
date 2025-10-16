@@ -25,14 +25,8 @@ const copyPhone = async () => {
       alt="my qr"
     />
     <div class="banks">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrngO0Z_RlEoArDZQNKX5XsrGSHckiN9-IEg&s"
-        alt="plin"
-      />
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSShovv-iT9_0EInDA-fT31Ouwa-4tKYETAyg&s"
-        alt="yape"
-      />
+      <img src="../assets/plin.png" alt="plin" />
+      <img src="../assets/yape.png" alt="yape" />
     </div>
     <span class="phone">{{ phone }}</span>
     <v-btn
