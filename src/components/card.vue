@@ -1,26 +1,38 @@
 <script setup>
-import { defineProps, computed } from "vue";
+import { defineProps, computed, ref, defineEmits } from "vue";
+import CardRegister from "./cardRegister.vue";
 
 // Props
 const props = defineProps({
-  i: { type: Number, default: 0 },
   item: { type: Object, default: () => ({}) },
 });
+
+// Emits
+const emit = defineEmits(["updatedItem"]);
+
+// Constants
+const dialog = ref(false);
 
 // Estado del regalo
 const status = computed(() => props.item?.available || false);
 
+// Functions
+const updatedItem = (data) => {
+  emit("updatedItem", data);
+};
 </script>
 
 <template>
   <div class="card">
     <div class="card__img">
-      <span class="status">{{ status ? 'Disponible' : 'Reservado' }}</span>
-      <img :src="props.item.img" :alt="props.item.name">
+      <span class="status">{{ status ? "Disponible" : "Reservado" }}</span>
+      <img :src="props.item.img" :alt="props.item.name" />
     </div>
     <div class="card__text">
       <span class="title">{{ props.item.name }} </span>
-      <span v-if="status" class="description">{{ props.item.description }} </span>
+      <span v-if="status" class="description"
+        >{{ props.item.description }}
+      </span>
       <div class="user" v-else>
         <v-icon size="small">mdi-account</v-icon>
         <span>{{ props.item.reservedBy }}</span>
@@ -30,13 +42,21 @@ const status = computed(() => props.item?.available || false);
       v-if="status"
       prepend-icon="mdi-gift-outline"
       class="text-white"
-      style="background-color: var(--color-primary);"
+      style="background-color: var(--color-primary)"
       variant="flat"
       size="large"
+      @click="dialog = true"
     >
       Yo lo llevo
     </v-btn>
-    </div>
+  </div>
+  <v-dialog v-model="dialog" max-width="500px" persistent>
+    <CardRegister
+      @closeModal="dialog = false"
+      :item="props.item"
+      @updatedItem="updatedItem"
+    />
+  </v-dialog>
 </template>
 
 <style scoped>
@@ -56,7 +76,7 @@ const status = computed(() => props.item?.available || false);
 }
 
 /* Imagen */
-.card__img { 
+.card__img {
   overflow: hidden;
   border-radius: 8px;
   position: relative;
@@ -68,7 +88,9 @@ const status = computed(() => props.item?.available || false);
 }
 .card__img .status {
   position: absolute;
-  background-color: v-bind("status ? 'var(--color-success)' : 'var(--color-warning)'");
+  background-color: v-bind(
+    "status ? 'var(--color-success)' : 'var(--color-warning)'"
+  );
   font-size: 12px;
   line-height: 12px;
   padding: 4px 12px;
@@ -79,7 +101,7 @@ const status = computed(() => props.item?.available || false);
 }
 
 /* Texto */
-.card__text { 
+.card__text {
   display: grid;
   align-items: center;
 }
@@ -109,7 +131,9 @@ const status = computed(() => props.item?.available || false);
   white-space: nowrap;
 }
 
-.card__actions { background-color: yellow; }
+.card__actions {
+  background-color: yellow;
+}
 
 @media (max-width: 600px) {
   .card {
