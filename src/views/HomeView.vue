@@ -26,14 +26,14 @@ onMounted(() => {
   const promises = images.map(
     (img) =>
       new Promise((resolve) => {
-        if (img.complete) return resolve(); // ya está cargada
+        if (img.complete) return resolve();
         img.addEventListener("load", resolve);
-        img.addEventListener("error", resolve); // evitar bloqueo si falla
+        img.addEventListener("error", resolve);
       })
   );
 
   Promise.all(promises).then(() => {
-    loading.value = false; // 🔹 ocultar loading al terminar todo
+    loading.value = false;
     console.log("✅ Todas las imágenes cargaron");
   });
 });
