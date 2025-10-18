@@ -1,12 +1,15 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import headerCustom from "@/components/headerCustom.vue";
 import cardList from "@/components/cardList.vue";
 import cardQr from "@/components/cardQr.vue";
 import InvitationIntro from "@/components/invitationIntro.vue";
+import Loading from "@/components/loading.vue";
 
+// Constants
 const tab = ref(1);
 const showIntro = ref(true);
+const loading = ref(true);
 
 function closeIntroEvent() {
   showIntro.value = false;
@@ -15,6 +18,25 @@ function closeIntroEvent() {
 function showIntroEvent() {
   showIntro.value = true;
 }
+
+// Mounted
+onMounted(() => {
+  const images = Array.from(document.querySelectorAll("img"));
+
+  const promises = images.map(
+    (img) =>
+      new Promise((resolve) => {
+        if (img.complete) return resolve(); // ya está cargada
+        img.addEventListener("load", resolve);
+        img.addEventListener("error", resolve); // evitar bloqueo si falla
+      })
+  );
+
+  Promise.all(promises).then(() => {
+    loading.value = false; // 🔹 ocultar loading al terminar todo
+    console.log("✅ Todas las imágenes cargaron");
+  });
+});
 </script>
 
 <template>
@@ -39,6 +61,8 @@ function showIntroEvent() {
       </v-tabs-window-item>
     </v-tabs-window>
   </div>
+
+  <loading :loading="loading" />
 </template>
 
 <style scoped>
