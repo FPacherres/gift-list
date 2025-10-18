@@ -11,14 +11,10 @@ function handleShow() {
 
 <template>
     <div class="header">
-      <div class="img">
-        <img src="../assets/bebe.jpeg" alt="Alana Kristell">
-        <v-btn text="ver" variant="flat" @click="handleShow" class="btn"/>
-      </div>
-      <div class="title">
-        <h1>Alana Kristell</h1>
-        <h2>Regalos Ideales</h2>
-      </div>
+      <img src="../assets/bebe.jpeg" alt="Alana Kristell">
+      <h1>Alana Kristell</h1>
+      <h2>Regalos Ideales</h2>
+      <v-btn text="ver invitación" variant="outlined" @click="handleShow" class="btn"/>
     </div>
 </template>
 
@@ -26,52 +22,69 @@ function handleShow() {
 .header {
   width: 350px;
   margin: 0 auto;
-  height: 120px;
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  align-items: center;
-  column-gap: 16px;
-}
-
-.img {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 0 12px;
-}
-.header img {
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
-  border: 3px solid var(--color-primary);
-}
-.img .btn {
-  font-size: 12px;
-  background-color: var(--color-primary);
-  color: var(--white);
-  height: 24px;
-  position: absolute;
-  bottom: 10px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-}
-
-.title {
+  height: auto;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0 40px;
 }
-.title h1 {
+
+.header img {
+  height: 240px;
+  width: 240px;
+  border-radius: 40px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  margin-bottom: 20px;
+}
+
+h1 {
   color: var(--black);
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 32px;
+  line-height: 32px;
+  font-family: "Great Vibes", cursive;
+  font-weight: 600;
 }
-.title h2 {
+h2 {
   color: var(--color-primary);
   font-weight: 600;
-  font-size: 25px;
-  line-height: 25px;
+  font-size: 36px;
+  line-height: 36px;
 }
+
+.btn {
+  color: var(--color-primary);
+  height: 32px;
+  margin-top: 20px;
+}
+
+.header img,
+.header h1,
+.header h2,
+.header .btn {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fade-up 0.8s ease-out forwards;
+}
+
+.header h1 {
+  animation-delay: 0.2s;
+}
+.header h2 {
+  animation-delay: 0.4s;
+}
+.header .btn {
+  animation-delay: 0.6s;
+}
+
+@keyframes fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 @media (max-width: 600px) {
   .header {

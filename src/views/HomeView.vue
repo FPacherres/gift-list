@@ -47,10 +47,18 @@ onMounted(() => {
   <div v-show="!showIntro" class="main-content">
     <header-custom @show="showIntroEvent" />
 
-    <v-tabs v-model="tab" align-tabs="center" class="custom-tabs">
-      <v-tab :value="1">Regalos</v-tab>
-      <v-tab :value="2">Efectivo</v-tab>
-    </v-tabs>
+    <!-- 🎬 Contenedor animado -->
+    <transition name="fade-up-tabs" appear>
+      <v-tabs
+        v-model="tab"
+        align-tabs="center"
+        class="custom-tabs"
+        v-if="!showIntro"
+      >
+        <v-tab :value="1">Regalos</v-tab>
+        <v-tab :value="2">Efectivo</v-tab>
+      </v-tabs>
+    </transition>
 
     <v-tabs-window v-model="tab">
       <v-tabs-window-item :value="1">
@@ -66,6 +74,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.custom-tabs {
+  margin-bottom: 20px;
+}
 .custom-tabs .v-tab {
   color: var(--color-primary);
 }
