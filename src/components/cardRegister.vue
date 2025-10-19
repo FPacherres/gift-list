@@ -1,6 +1,8 @@
 <script setup>
 import { ref, defineProps, defineEmits } from "vue";
 import Swal from "sweetalert2";
+import { db } from '@/firebase/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 
 // Props
 const props = defineProps({
@@ -11,36 +13,56 @@ const props = defineProps({
 });
 
 // Emits
-const emit = defineEmits(["closeModal","updatedItem"]);
+const emit = defineEmits(["closeModal", "updatedItem"]);
 
 // State
 const name = ref("");
 const loading = ref(false);
+
+const NOMBRE_COLECCION = 'gifts'; // Cambia esto por el nombre de tu colección
 
 // Validaciones
 function required(v) {
   return !!v || "Campo obligatorio";
 }
 
-// Envío
-function onSubmit() {
+// Envío con Firebase
+async function onSubmit() {
   if (!name.value) return;
 
   loading.value = true;
 
-  // Simula petición al backend
-  console.log("Enviando registro...", {
-    nombre: name.value,
-    item: props.item,
-  });
+  try {
+    // Referencia al documento en Firestore
+    const docRef = doc(db, NOMBRE_COLECCION, props.item.id);
+    
+    // Actualizar el documento
+    await updateDoc(docRef, {
+      reservedBy: name.value,
+      available: false
+    });
 
-  setTimeout(() => {
-    // Simula respuesta OK
+    console.log("Item actualizado en Firebase:", {
+      id: props.item.id,
+      reservedBy: name.value,
+      available: false
+    });
+
+    // Emitir evento con los datos actualizados
+    emit("updatedItem", { 
+      id: props.item.id, 
+      reservedBy: name.value, 
+      available: false 
+    });
+
     showAlert(true);
-    loading.value = false;
     emit("closeModal");
-    emit("updatedItem", { _id: props.item._id, name: name.value })
-  }, 2000);
+  } catch (error) {
+    console.error("Error al actualizar item:", error);
+    showAlert(false);
+  } finally {
+    loading.value = false;
+  }
 }
 
 // Cancelar

@@ -1,6 +1,49 @@
 <script setup>
 import card from "@/components/card.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import cunaImg from "@/assets/cuna.jpg";
+import { db } from '@/firebase/firebase';
+import { 
+  collection, 
+  getDocs,
+} from 'firebase/firestore';
+import { 
+  ref as storageRef, 
+  uploadBytes, 
+  getDownloadURL,
+  deleteObject 
+} from 'firebase/storage';
+
+
+const NOMBRE_COLECCION = 'gifts';
+const images = {
+  cuna: cunaImg,
+}
+
+// Obtener items de Firestore
+const obtenerItems = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, NOMBRE_COLECCION));
+
+    console.log('Documentos encontrados:', querySnapshot);
+    
+    list.value = querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      const img = images[data.img]
+      return {
+        ...data,
+        id: doc.id,
+        img
+      }
+    });
+  } catch (error) {
+    console.error('Error al obtener items:', error);
+  }
+};
+
+onMounted(() => {
+  obtenerItems();
+});
 
 const list = ref([
   {
@@ -11,85 +54,13 @@ const list = ref([
     reservedBy: "",
     description: "Un hermoso regalo ideal para toda ocasión.",
   },
-  {
-    _id: "b2d7e4a1",
-    name: "Regalo 2",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: true,
-    reservedBy: "",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-  {
-    _id: "c3f8d2b5",
-    name: "Regalo 3",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: false,
-    reservedBy: "Lucía Torres",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-  {
-    _id: "d4a9e6f2",
-    name: "Regalo 4",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: true,
-    reservedBy: "",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-  {
-    _id: "e5b1c8d4",
-    name: "Regalo 5",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: true,
-    reservedBy: "",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-  {
-    _id: "f6c2a7b9",
-    name: "Regalo 6",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: false,
-    reservedBy: "Carlos Fernández",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-  {
-    _id: "g7d4e9c3",
-    name: "Regalo 7",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: false,
-    reservedBy: "Valeria Ruiz",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-  {
-    _id: "h8e5f1d7",
-    name: "Regalo 8",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: true,
-    reservedBy: "",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-  {
-    _id: "i9f6a3e8",
-    name: "Regalo 9",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: false,
-    reservedBy: "Javier Ríos",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-  {
-    _id: "j1a7b4f9",
-    name: "Regalo 10",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: true,
-    reservedBy: "",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
 ]);
 
 // Functions
 const updatedItem = (data) => {
   const pos = list.value.findIndex(item => item._id === data._id);
-  list.value[pos].reservedBy = data.name;
-  list.value[pos].available = data.false;
+  list.value[pos].reservedBy = data.reservedBy;
+  list.value[pos].available = false;
 }
 
 </script>
