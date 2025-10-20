@@ -18,7 +18,11 @@ const copyPhone = async () => {
 </script>
 
 <template>
-  <div class="cardQr">
+  <div class="newCardQr">
+    <p>Si prefieres hacer tu <strong>regalo en efectivo</strong>, puedes llevarlo el día del evento en un sobre, <strong>con el monto que desees.</strong><br><br>
+    <br>Lo importante es que sea un detalle hecho con cariño ❤️</p>
+  </div>
+  <div class="cardQr" v-if="false">
     <img
       class="qr"
       src="https://g4c7y7r6.delivery.rocketcdn.me/wp-content/uploads/2024/02/QR-code-black-and-white.webp"
@@ -56,6 +60,20 @@ const copyPhone = async () => {
 </template>
 
 <style scoped>
+.newCardQr {
+  width: 100vw;
+  padding: 20px 20px 0;
+  max-width: 350px;
+  background-color: var(--color-background);
+}
+.newCardQr p {
+  font-size: 20px;
+  text-align: center;
+}
+.newCardQr strong {
+  font-size: 20px;
+  color: var(--color-primary);
+}
 .cardQr {
   width: 100vw;
   padding: 20px 20px 0;

@@ -27,12 +27,9 @@ onBeforeUnmount(() => {
 
 <template>
   <transition name="fade">
-    <div
-      class="intro-screen"
-      :class="{ small: isSmall }"
-    >
-      <img class="fondo" src="../assets/fondo.png" alt="">
-      <img class="osito" src="../assets/osito.png" alt="">
+    <div class="intro-screen" :class="{ small: isSmall }">
+      <img class="fondo" src="../assets/fondo.png" alt="" />
+      <img class="osito" src="../assets/osito.png" alt="" />
 
       <span class="label1">
         La dulce espera <br />
@@ -41,8 +38,14 @@ onBeforeUnmount(() => {
       </span>
 
       <div class="box1">
-        <span class="text1">Acompáñanos a <br /> celebrar el</span>
-        <span class="text2">Baby <br /> Shower</span>
+        <span class="text1"
+          >Acompáñanos a <br />
+          celebrar el</span
+        >
+        <span class="text2"
+          >Baby <br />
+          Shower</span
+        >
         <span class="text1">en honor a</span>
       </div>
 
@@ -58,11 +61,12 @@ onBeforeUnmount(() => {
       </div>
 
       <span class="address">
-        Calle. Daniel Alcides Carrión <br>
+        Calle. Daniel Alcides Carrión <br />
         N° 135, Dpt. 501 - Chiclayo
       </span>
 
       <v-btn class="btn" @click="handleClose">Revisar regalos</v-btn>
+      <span class="msg">Regalo por personsa</span>
     </div>
   </transition>
 </template>
@@ -84,7 +88,7 @@ onBeforeUnmount(() => {
   text-align: center;
   display: flex;
   flex-direction: column;
-  padding: 40px 0;
+  padding: 28px 0;
 
   width: 100vw;
   height: 600px;
@@ -92,7 +96,9 @@ onBeforeUnmount(() => {
   margin: auto;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
 .fade-enter-active,
@@ -110,19 +116,19 @@ onBeforeUnmount(() => {
 }
 
 .osito {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 150px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
 }
 
 .fondo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 350px;
-    z-index: -1;
-    opacity: 0.4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 350px;
+  z-index: -1;
+  opacity: 0.4;
 }
 
 .label1 {
@@ -143,7 +149,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 30px 10px 0 auto;
+  margin: 20px 10px 0 auto;
 }
 
 .box1 .text1 {
@@ -178,55 +184,63 @@ onBeforeUnmount(() => {
   font-family: "Great Vibes", cursive;
 }
 .box2 .date {
-    display: grid;
-    grid-template-columns: 1fr auto 60px;
-    color: var(--invitation-4);
-    align-items: center;
-    gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto 60px;
+  color: var(--invitation-4);
+  align-items: center;
+  gap: 12px;
 }
 .box2 .date .mounth,
 .box2 .date .year {
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 .box2 .date .day {
-    font-size: 36px;
-    line-height: 40px;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-left: 3px solid var(--invitation-4);
-    border-right: 3px solid var(--invitation-4);
-    padding: 6px 12px;
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-left: 3px solid var(--invitation-4);
+  border-right: 3px solid var(--invitation-4);
+  padding: 6px 12px;
 }
 .box2 .extra {
-    text-transform: uppercase;
-    font-size: 14px;
-    line-height: 18px;
-    font-weight: 400;
-    letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 3px;
 }
 .box2 .extra.main {
-    letter-spacing: 8px;
+  letter-spacing: 8px;
 }
 
 .address {
-    margin-top: 20px;
-    font-size: 12px;
-    line-height: 20px;
-    font-weight: 600;
-    color: var(--invitation-1);
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--invitation-1);
 }
 
 .btn {
-    background-color: var(--invitation-3);
-    border-radius: 30px;
-    box-shadow: none;
-    color: var(--white);
-    font-size: 16px;
-    letter-spacing: 0px;
-    height: 32px;
-    width: 200px;
-    margin: 12px auto 0px;
+  background-color: var(--invitation-3);
+  border-radius: 30px;
+  box-shadow: none;
+  color: var(--white);
+  font-size: 16px;
+  letter-spacing: 0px;
+  height: 32px;
+  width: 200px;
+  margin: 12px auto 0px;
+}
+
+.msg {
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 600;
+  color: var(--invitation-4);
+  margin-top: 15px;
 }
 </style>

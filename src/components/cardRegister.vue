@@ -302,6 +302,7 @@ function showAlert(ok) {
 <template>
   <div class="cardRegister" :class="{ 'cardRegister--loading': loading }">
     <div class="cardRegister__img">
+      <span class="msg">Regalo por persona</span>
       <img :src="props.item.img" :alt="props.item.name" />
     </div>
 
@@ -379,6 +380,19 @@ function showAlert(ok) {
   object-fit: cover;
 }
 
+.cardRegister__img .msg {
+  position: absolute;
+  background-color: var(--color-primary);
+  color: var(--white);
+  font-size: 12px;
+  line-height: 12px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  top: 8px;
+  left: 8px;
+}
+
 .title {
   font-size: 20px;
   font-weight: 600;
@@ -386,6 +400,7 @@ function showAlert(ok) {
 .description {
   font-size: 16px;
   color: var(--color-text-secondary);
+  margin-bottom: 10px;
 }
 
 .input {

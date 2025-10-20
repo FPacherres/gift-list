@@ -19,19 +19,12 @@ import panaleraImg from "@/assets/panalera.jpg";
 import sillaImg from "@/assets/silla.jpg";
 import sabanasImg from "@/assets/sabanas.jpg";
 import ajuarImg from "@/assets/ajuar.jpg";
-import setbanoImg from "@/assets/setbano.jpg";
+import setbanoImg from "@/assets/setbano.jpeg";
 import { db } from '@/firebase/firebase';
 import { 
   collection, 
   getDocs,
 } from 'firebase/firestore';
-import { 
-  ref as storageRef, 
-  uploadBytes, 
-  getDownloadURL,
-  deleteObject 
-} from 'firebase/storage';
-
 
 const NOMBRE_COLECCION = 'gifts';
 const images = {
@@ -56,16 +49,18 @@ const images = {
   setbano: setbanoImg,
 }
 
+const list = ref([]);
+const loading = ref(true);
+
 // Obtener items de Firestore
 const obtenerItems = async () => {
+  loading.value = true;
   try {
     const querySnapshot = await getDocs(collection(db, NOMBRE_COLECCION));
 
-    console.log('Documentos encontrados:', querySnapshot);
-    
     list.value = querySnapshot.docs.map(doc => {
       const data = doc.data();
-      const img = images[data.img]
+      const img = images[data.img];
       return {
         ...data,
         id: doc.id,
@@ -74,6 +69,8 @@ const obtenerItems = async () => {
     });
   } catch (error) {
     console.error('Error al obtener items:', error);
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -81,20 +78,9 @@ onMounted(() => {
   obtenerItems();
 });
 
-const list = ref([
-  {
-    _id: "a1f3b9c7",
-    name: "Regalo 1",
-    img: "https://www.craft-child.com/wp-content/uploads/2024/05/Solid-Wood-Crib-2.webp",
-    available: true,
-    reservedBy: "",
-    description: "Un hermoso regalo ideal para toda ocasión.",
-  },
-]);
-
 // Functions
 const updatedItem = (data) => {
-  const pos = list.value.findIndex(item => item._id === data._id);
+  const pos = list.value.findIndex(item => item.id === data.id);
   list.value[pos].reservedBy = data.reservedBy;
   list.value[pos].available = false;
 }
@@ -103,7 +89,25 @@ const updatedItem = (data) => {
 
 <template>
   <div class="cardList">
-    <card v-for="item in list" :key="item._id" :item="item" @updatedItem="updatedItem" />
+    <!-- Loading -->
+    <div v-if="loading" class="loading-container">
+      <v-progress-circular
+        indeterminate
+        :style="{ color: 'var(--color-primary)' }"
+        size="64"
+      />
+      <p class="loading-text">Cargando regalos...</p>
+    </div>
+
+    <!-- Lista de cards -->
+    <template v-else>
+      <card 
+        v-for="item in list" 
+        :key="item.id" 
+        :item="item" 
+        @updatedItem="updatedItem" 
+      />
+    </template>
   </div>
 </template>
 
@@ -116,5 +120,22 @@ const updatedItem = (data) => {
   gap: 24px;
   padding-bottom: 48px;
   align-items: center;
+  min-height: 100vh;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 20px;
+  width: 100%;
+}
+
+.loading-text {
+  font-size: 18px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
 }
 </style>

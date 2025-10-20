@@ -17,8 +17,8 @@ const dialog = ref(false);
 const status = computed(() => props.item?.available || false);
 
 // Functions
-const updatedItem = (data) => {
-  emit("updatedItem", data);
+const updatedItem = (list) => {
+  emit("updatedItem", list);
 };
 </script>
 
