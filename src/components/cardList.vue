@@ -2,6 +2,21 @@
 import card from "@/components/card.vue";
 import { ref, onMounted } from "vue";
 import cunaImg from "@/assets/cuna.jpg";
+import tinaImg from "@/assets/tina.jpg";
+import andadorImg from "@/assets/andador.jpg";
+import cambiadorImg from "@/assets/cambiador.jpg";
+import canguroImg from "@/assets/canguro.jpg";
+import cocheImg from "@/assets/coche.jpg";
+import cocheBastonImg from "@/assets/cocheBaston.jpg";
+import colechoImg from "@/assets/colecho.jpg";
+import corralImg from "@/assets/corral.jpg";
+import cortaunasImg from "@/assets/cortaunas.jpg";
+import esterilizadorImg from "@/assets/esterilizador.jpg";
+import gimnasioImg from "@/assets/gimnasio.jpg";
+import mecedoraImg from "@/assets/mecedora.jpg";
+import movilImg from "@/assets/movil.jpg";
+import panaleraImg from "@/assets/panalera.jpg";
+import sillaImg from "@/assets/silla.jpg";
 import { db } from '@/firebase/firebase';
 import { 
   collection, 
@@ -18,6 +33,21 @@ import {
 const NOMBRE_COLECCION = 'gifts';
 const images = {
   cuna: cunaImg,
+  tina: tinaImg,
+  andador: andadorImg,
+  cambiador: cambiadorImg,
+  canguro: canguroImg,
+  coche: cocheImg,
+  cocheBaston: cocheBastonImg,
+  colecho: colechoImg,
+  corral: corralImg,
+  cortaunas: cortaunasImg,
+  esterilizador: esterilizadorImg,
+  gimnasio: gimnasioImg,
+  mecedora: mecedoraImg,
+  movil: movilImg,
+  panalera: panaleraImg,
+  silla: sillaImg,
 }
 
 // Obtener items de Firestore

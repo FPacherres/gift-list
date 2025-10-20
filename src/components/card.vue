@@ -30,9 +30,15 @@ const updatedItem = (data) => {
     </div>
     <div class="card__text">
       <span class="title">{{ props.item.name }} </span>
-      <span v-if="status" class="description"
-        >{{ props.item.description }}
-      </span>
+      <template v-if="status" >
+        <span v-if="props.item.description !== ''" class="description">{{ props.item.description }}</span>
+        <div v-if="props?.item?.links?.length" class="links">
+          <span class="main">Referencias: </span>
+          <a v-for="(link,l) in props.item.links" :key="l" class="tag" :href="link" target="_blank">
+            Links {{ l + 1 }}
+          </a>
+        </div>
+      </template>
       <div class="user" v-else>
         <v-icon size="small">mdi-account</v-icon>
         <span>{{ props.item.reservedBy }}</span>
@@ -64,7 +70,7 @@ const updatedItem = (data) => {
   width: 100vw;
   max-width: 350px;
   flex-shrink: 0;
-  min-height: v-bind("status ? '350px' : '294px'");
+  min-height: auto;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   border-radius: 10px;
@@ -109,11 +115,31 @@ const updatedItem = (data) => {
   font-size: 20px;
   line-height: 28px;
   font-weight: 600;
+  padding-bottom: 8px;
 }
 .card__text .description {
   font-size: 16px;
   line-height: 20px;
-  padding-top: 12px;
+  padding-bottom: 8px;
+}
+.card__text .links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.card__text .links .main {
+  font-weight: 500;
+  font-size: 12px;
+}
+.card__text .links .tag {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 12px;
+  padding: 0px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
 }
 .card__text .user {
   display: grid;
