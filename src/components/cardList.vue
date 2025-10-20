@@ -17,6 +17,9 @@ import mecedoraImg from "@/assets/mecedora.jpg";
 import movilImg from "@/assets/movil.jpg";
 import panaleraImg from "@/assets/panalera.jpg";
 import sillaImg from "@/assets/silla.jpg";
+import sabanasImg from "@/assets/sabanas.jpg";
+import ajuarImg from "@/assets/ajuar.jpg";
+import setbanoImg from "@/assets/setbano.jpg";
 import { db } from '@/firebase/firebase';
 import { 
   collection, 
@@ -48,6 +51,9 @@ const images = {
   movil: movilImg,
   panalera: panaleraImg,
   silla: sillaImg,
+  sabanas: sabanasImg,
+  ajuar: ajuarImg,
+  setbano: setbanoImg,
 }
 
 // Obtener items de Firestore
