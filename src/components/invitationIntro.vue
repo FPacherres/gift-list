@@ -51,13 +51,13 @@ onBeforeUnmount(() => {
 
       <div class="box2">
         <span class="name">Alana Kristell</span>
-        <span class="extra main">Domingo</span>
+        <span class="extra main">Próximamente</span>
         <div class="date">
           <span class="mounth">Noviembre</span>
-          <span class="day">07</span>
+          <span class="day">--</span>
           <span class="year">2025</span>
         </div>
-        <span class="extra">A las 3:00 P.M.</span>
+        <span class="extra">A las 6:00 P.M.</span>
       </div>
 
       <span class="address">
