@@ -54,7 +54,7 @@ onBeforeUnmount(() => {
         <span class="extra main">Sabado</span>
         <div class="date">
           <span class="mounth">Noviembre</span>
-          <span class="day">08</span>
+          <span class="day">15</span>
           <span class="year">2025</span>
         </div>
         <span class="extra">A las 6:00 P.M.</span>
